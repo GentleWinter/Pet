@@ -37,6 +37,7 @@ builder.Services.AddSwaggerGen(opt =>
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
+//todo: fix read-only erros in this step
 builder.Services.AddDbContext<PetContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default"));
