@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pet.Domain\Pet.Domain.csproj" />
+    <ProjectReference Include="..\Pet.Infra\Pet.Infra.csproj" />
+  </ItemGroup>
+
+</Project>
