@@ -25,8 +25,8 @@ builder.Services.AddSwaggerGen(opt =>
     opt.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "Tutor API",
-        Description = ".NET7 Api to manipulate tutor data"
+        Title = "Pet API",
+        Description = ".NET7 Api to manipulate pet data"
     });
 
     //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -34,13 +34,19 @@ builder.Services.AddSwaggerGen(opt =>
     //opt.IncludeXmlComments(xmlPath);
 });
 
-var app = builder.Build();
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
 builder.Services.AddDbContext<PetContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default"));
 });
+
+var app = builder.Build();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<PetContext>();
+    dataContext.Database.Migrate();
+}
 
 app.UseHttpsRedirection();
 app.UseRouting();

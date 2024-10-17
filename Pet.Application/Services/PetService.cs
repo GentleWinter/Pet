@@ -47,7 +47,7 @@ namespace Pet.Application.Services
         public async Task<PetDTO> SearchPet(PetDTO petDTO)
         {
             var petEntity = await _petRepository.SearchPet(t => t.Name == petDTO.Name
-                                                            && t.PetBreed == petDTO.PetBreed);
+                                                            && t.TutorId == petDTO.TutorId);
 
             return new PetDTO()
             {

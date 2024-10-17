@@ -6,33 +6,37 @@ namespace Pet.Api.Controllers
 {
     public class PetController : Controller
     {
-        private readonly IPetServices _services;
+        private readonly IPetServices _petServices;
+        public PetController(IPetServices petServices)
+        {
+            _petServices = petServices;
+        }
 
         [HttpPost]
-        [Route ("CreatePet")]
+        [Route("CreatePet")]
         public async Task<IActionResult> CreatePet([FromBody] PetDTO pet)
         {
             try
             {
-                var ret = await _services.CreatePet(pet);
+                var ret = await _petServices.CreatePet(pet);
                 return Ok(ret);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Could not create pet: {ex}");
             }
         }
-        
+
         [HttpGet]
-        [Route ("SearchPet")]
+        [Route("SearchPet")]
         public async Task<IActionResult> SearchPet([FromQuery] PetDTO pet)
         {
             try
             {
-                var ret = await _services.SearchPet(pet);
+                var ret = await _petServices.SearchPet(pet);
                 return Ok(ret);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, $"Could not find pet: {ex}");
             }
@@ -44,7 +48,7 @@ namespace Pet.Api.Controllers
         {
             try
             {
-                var ret = _services.UpdatePet(pet);
+                var ret = _petServices.UpdatePet(pet);
                 return Ok(ret);
             }
             catch (Exception ex)
