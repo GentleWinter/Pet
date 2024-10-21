@@ -14,7 +14,7 @@ namespace Pet.Api.Controllers
 
         [HttpPost]
         [Route("CreatePet")]
-        public async Task<IActionResult> CreatePet([FromBody] PetDTO pet)
+        public async Task<IActionResult> CreatePet([FromBody] CreatePetDTO pet)
         {
             try
             {
@@ -49,6 +49,21 @@ namespace Pet.Api.Controllers
             try
             {
                 var ret = _petServices.UpdatePet(pet);
+                return Ok(ret);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, $"Could not create pet: {ex}");
+            }
+        }
+        
+        [HttpPost]
+        [Route("DeletePet")]
+        public IActionResult DeletePet([FromBody] PetDTO pet)
+        {
+            try
+            {
+                var ret = _petServices.DeletePet(pet);
                 return Ok(ret);
             }
             catch (Exception ex)

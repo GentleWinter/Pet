@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pet.Infra.Contexts;
@@ -11,9 +12,11 @@ using Pet.Infra.Contexts;
 namespace Pet.Infra.Migrations
 {
     [DbContext(typeof(PetContext))]
-    partial class PetContextModelSnapshot : ModelSnapshot
+    [Migration("20241021035312_UpdateDb")]
+    partial class UpdateDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

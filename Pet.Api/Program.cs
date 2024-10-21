@@ -57,10 +57,10 @@ app.UseSwagger(opt =>
     opt.SerializeAsV2 = true;
 });
 
-app.UseSwaggerUI(opt =>
+app.UseSwaggerUI(c =>
 {
-    opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Pet API - v1");
-    opt.RoutePrefix = string.Empty;
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pet API v1");
+    c.RoutePrefix = "swagger";
 });
 
 app.MapControllers();

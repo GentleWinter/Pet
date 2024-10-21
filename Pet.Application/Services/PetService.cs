@@ -14,12 +14,13 @@ namespace Pet.Application.Services
             _petRepository = petRepository;
         }
 
-        public async Task<PetDTO> CreatePet(PetDTO petDTO)
+        public async Task<PetDTO> CreatePet(CreatePetDTO petDTO)
         {
             PetEntity entity = new PetEntity()
             {
                 TutorId = petDTO.TutorId,
                 Name = petDTO.Name,
+                PetSpecies = petDTO.PetSpecies,
                 PetBreed = petDTO.PetBreed,
                 Description = petDTO.Description,
                 BirthDate = petDTO.BirthDate
@@ -33,15 +34,35 @@ namespace Pet.Application.Services
                 Id = newPet.Id,
                 TutorId = newPet.TutorId,
                 Name = newPet.Name,
+                PetSpecies = newPet.PetSpecies,
                 PetBreed = newPet.PetBreed,
                 Description = newPet.Description,
                 BirthDate = newPet.BirthDate
             };
         }
 
-        public Task<PetDTO> DeletePet(PetDTO petDTO)
+        public async Task<bool> DeletePet(PetDTO petDTO)
         {
-            throw new NotImplementedException();
+            var ret = SearchPet(petDTO);
+
+            PetEntity entity = new PetEntity()
+            {
+                Id = petDTO.Id,
+                TutorId = petDTO.TutorId,
+                Name = petDTO.Name,
+                PetSpecies = petDTO.PetSpecies,
+                PetBreed = petDTO.PetBreed,
+                Description = petDTO.Description,
+                BirthDate = petDTO.BirthDate
+            };
+
+            if (ret != null)
+            {
+                await _petRepository.DeletePet(entity);
+
+                return true;
+            }
+            return false;
         }
 
         public async Task<PetDTO> SearchPet(PetDTO petDTO)
@@ -54,6 +75,7 @@ namespace Pet.Application.Services
                 Id = petEntity.Id,
                 TutorId = petEntity.TutorId,
                 Name = petEntity.Name,
+                PetSpecies = petEntity.PetSpecies,
                 PetBreed = petEntity.PetBreed,
                 Description = petEntity.Description,
                 BirthDate = petEntity.BirthDate
@@ -67,6 +89,7 @@ namespace Pet.Application.Services
                 Id = petDTO.Id,
                 TutorId = petDTO.TutorId,
                 Name = petDTO.Name,
+                PetSpecies = petDTO.PetSpecies,
                 PetBreed = petDTO.PetBreed,
                 Description = petDTO.Description,
                 BirthDate = petDTO.BirthDate
@@ -80,6 +103,7 @@ namespace Pet.Application.Services
                 Id = newPet.Id,
                 TutorId = newPet.TutorId,
                 Name = newPet.Name,
+                PetSpecies = newPet.PetSpecies,
                 PetBreed = newPet.PetBreed,
                 Description = newPet.Description,
                 BirthDate = newPet.BirthDate

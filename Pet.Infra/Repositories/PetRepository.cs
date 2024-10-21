@@ -27,7 +27,9 @@ namespace Pet.Infra.Repositories
 
         public Task<PetEntity> DeletePet(PetEntity petEntity)
         {
-            throw new NotImplementedException();
+            _dbSet.Remove(petEntity);
+            _dbContext.SaveChanges();
+            return Task.FromResult(petEntity);
         }
 
 
