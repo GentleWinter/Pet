@@ -25,16 +25,17 @@ namespace Pet.Infra.Repositories
             return result.Entity;
         }
 
-        public Task<PetEntity> DeletePet(PetEntity petEntity)
+        public async Task<PetEntity> DeletePet(PetEntity petEntity)
         {
+            //idk why this is not working at all but i have to sleep rn
             _dbSet.Remove(petEntity);
-            _dbContext.SaveChanges();
-            return Task.FromResult(petEntity);
+            await _dbContext.SaveChangesAsync();
+            return petEntity;
         }
 
 
-        public Task<PetEntity?> SearchPet(Expression<Func<PetEntity, bool>> predicated)
-            => _dbSet.FirstOrDefaultAsync(predicated);
+        public async Task<PetEntity?> SearchPet(Expression<Func<PetEntity, bool>> predicated)
+            => await _dbSet.FirstOrDefaultAsync(predicated);
 
         public PetEntity UpdatePet(PetEntity petEntity)
             => _dbSet.Update(petEntity).Entity;

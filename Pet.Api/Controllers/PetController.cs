@@ -42,7 +42,7 @@ namespace Pet.Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("UpdatePet")]
         public IActionResult UpdatePet([FromBody] PetDTO pet)
         {
@@ -57,7 +57,7 @@ namespace Pet.Api.Controllers
             }
         }
         
-        [HttpPost]
+        [HttpDelete]
         [Route("DeletePet")]
         public IActionResult DeletePet([FromBody] PetDTO pet)
         {
